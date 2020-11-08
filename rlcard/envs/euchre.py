@@ -14,17 +14,34 @@ class EuchreEnv(Env):
         super().__init__(config)
 
     def _extract_state(self, state):
+        def vec(s):
+            suit = {"C":0, "D":1, "H":2, "S":3}
+            rank = {"9":9, "T":10, "J":11, "Q":12, "K":13, "A":14}
+            if len(s == 1):
+                np.array([ suit[s[0]] ])
+            else:
+                return np.array([ suit[s[0]], rank[s[1]] ])
+
         state['legal_actions'] = self._get_legal_actions()
         state['raw_legal_actions'] = self.game.get_legal_actions()
-        state['obs'] = np.hstack([state['hand'],
-                                  state['trump_called'],
-                                  state['trump'],
-                                  state['turned_down'],
-                                  state['lead_suit'],
-                                  state['flipped'],
-                                  state['center'],
-                                  np.zeros(4-len(state['center'])),
-                                  state['hand']])
+        obs = []
+        if state['trump_called']:
+            obs += [ vec(state['trump']) ]
+        else:
+            obs += [ np.array([-1]) ]
+        if state['flipped']:
+            obs += [ vec(state['flipped']) ]
+        else:
+            obs += [ np.array([-1]) ]
+        if state['lead_suit']:
+            obs += [ vec(state['lead_suit']) ]
+        else:
+            obs += [ np.array([-1]) ]
+        obs += [ vec(e) for e in state['hand'] ]
+        obs += [ np.zeros(2*(5-len(state['hand'])))-1 ]
+        obs += [ vec(e) for e in state['center'] ]
+        obs += [ np.zeros(2*(4-len(state['center'])))-1 ]
+        state['obs'] = np.hstack(obs)
         print(state['obs'])
         return state
 
