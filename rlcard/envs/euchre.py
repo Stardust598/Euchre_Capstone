@@ -15,18 +15,17 @@ class EuchreEnv(Env):
 
     def _extract_state(self, state):
         def vec(s):
+            print(s)
             suit = {"C":0, "D":1, "H":2, "S":3}
             rank = {"9":9, "T":10, "J":11, "Q":12, "K":13, "A":14}
-            if len(s == 1):
+            if len(s)==1:
                 np.array([ suit[s[0]] ])
             else:
                 return np.array([ suit[s[0]], rank[s[1]] ])
 
         state['legal_actions'] = self._get_legal_actions()
         state['raw_legal_actions'] = self.game.get_legal_actions()
-        print(state['trump_called'])
-        print(state['flipped'])
-        print(state['lead_suit'])
+
         obs = []
         if state['trump_called'] is not None:
             obs += [ vec(state['trump']) ]
