@@ -25,6 +25,7 @@ class EuchreEnv(Env):
                                   state['center'],
                                   np.zeros(4-len(state['center'])),
                                   state['hand']])
+        print(state['obs'])
         return state
 
     def _decode_action(self, action_id):
