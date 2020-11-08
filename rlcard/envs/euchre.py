@@ -40,7 +40,7 @@ class EuchreEnv(Env):
             obs += [ np.array([-1]) ]
         obs += [ vec(e) for e in state['hand'] ]
         obs += [ np.zeros(2*(6-len(state['hand'])))-1 ]
-        obs += [ vec(e) for e in state['center'] ]
+        obs += [ vec(e.get_index()) for e in state['center'] ]
         obs += [ np.zeros(2*(4-len(state['center'])))-1 ]
         state['obs'] = np.hstack(obs)
 
