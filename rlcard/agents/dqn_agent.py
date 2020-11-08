@@ -264,14 +264,14 @@ class Estimator():
         batch_size = tf.shape(self.X_pl)[0]
 
         # Batch Normalization
-        X = tf.layers.BatchNormalization(self.X_pl, trainable=self.is_train)
+        X = tf.layers.batch_normalization(self.X_pl, trainable=self.is_train)
 
         # Fully connected layers
-        fc = tf.layers.Flatten(X)
+        fc = tf.layers.flatten(X)
 
         for dim in self.mlp_layers:
-            fc = tf.layers.Dense(fc, dim, activation_fn=tf.tanh)
-        self.predictions = tf.contrib.layers.fully_connected(fc, self.action_num, activation_fn=None)
+            fc = tf.layers.dense(fc, dim, activation_fn=tf.tanh)
+        self.predictions = tf.layers.dense(fc, self.action_num, activation_fn=None)
 
         # Get the predictions for the chosen actions only
         gather_indices = tf.range(batch_size) * tf.shape(self.predictions)[1] + self.actions_pl
