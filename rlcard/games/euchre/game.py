@@ -52,7 +52,7 @@ class EuchreGame(object):
             state['flipped'] = self.flipped_card.get_index()
         else:
             state['flipped'] = None
-        state['center'] = {k:v.get_index() for k, v in self.center.items()}
+        state['center'] = [e.get_index() for e in self.center]
         return state
 
     def step(self, action):
