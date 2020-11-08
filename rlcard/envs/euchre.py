@@ -7,6 +7,9 @@ class EuchreEnv(Env):
     def __init__(self, config):
         self.game = Game()
         self.name = "euchre"
+
+        self.actions = ACTION_LIST
+        self.state_shape = [len(self.actions)]
         super().__init__(config)
 
     def _extract_state(self, state):
