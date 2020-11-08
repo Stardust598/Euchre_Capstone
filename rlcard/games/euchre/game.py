@@ -28,7 +28,7 @@ class EuchreGame(object):
 
         self.flipped_card = self.dealer.flip_top_card()
         self.history = []
-        self.center = {}
+        self.center = []
         self.score = {i:0 for i in range(self.num_players)}
         self.game_over = False
         
@@ -121,14 +121,14 @@ class EuchreGame(object):
                 self.lead_suit = self.trump
             else:
                 self.lead_suit = card.suit
-        self.center[self.current_player] = card
+        self.center += card
         self.current_player = self._increment_player(self.current_player)
 
     def _end_trick(self):
         winner = self.judge.judge_trick(self)
         self.score[winner] += 1
         self.current_player = winner
-        self.center = {}
+        self.center = []
         self.lead_suit = None
 
     def _perform_call(self, suit):
