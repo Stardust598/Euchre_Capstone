@@ -27,7 +27,7 @@ class EuchreEnv(Env):
         state['raw_legal_actions'] = self.game.get_legal_actions()
 
         obs = []
-        if state['trump_called'] is not None:
+        if state['trump'] is not None:
             obs += [ vec(state['trump']) ]
         else:
             obs += [ np.array([-1]) ]
