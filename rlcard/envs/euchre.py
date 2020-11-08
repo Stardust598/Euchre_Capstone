@@ -15,7 +15,14 @@ class EuchreEnv(Env):
     def _extract_state(self, state):
         state['legal_actions'] = self._get_legal_actions()
         state['raw_legal_actions'] = self.game.get_legal_actions()
-        state['obs'] = state
+        state['obs'] = np.hstack([state['hand'],
+                                  state['trump_called'],
+                                  state['trump'],
+                                  state['turned_down'],
+                                  state['lead_suit'],
+                                  state['flipped'],
+                                  [v for k,v in state['center'].items()],
+                                  state['hand']])
         return state
 
     def _decode_action(self, action_id):
