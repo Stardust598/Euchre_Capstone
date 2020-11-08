@@ -24,6 +24,9 @@ class EuchreEnv(Env):
 
         state['legal_actions'] = self._get_legal_actions()
         state['raw_legal_actions'] = self.game.get_legal_actions()
+        print(state['trump_called'])
+        print(state['flipped'])
+        print(state['lead_suit'])
         obs = []
         if state['trump_called']:
             obs += [ vec(state['trump']) ]
