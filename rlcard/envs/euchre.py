@@ -33,7 +33,7 @@ class EuchreEnv(Env):
         if state['flipped'] is not None:
             obs += [ vec(state['flipped']) ]
         else:
-            obs += [ np.array([-1]) ]
+            obs += [ np.array([-1,-1]) ]
         if state['lead_suit'] is not None:
             obs += [ vec(state['lead_suit']) ]
         else:
