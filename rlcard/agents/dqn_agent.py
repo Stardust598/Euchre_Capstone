@@ -267,10 +267,10 @@ class Estimator():
         X = tf.layers.batch_normalization(self.X_pl, training=self.is_train)
 
         # Fully connected layers
-        fc = tf.contrib.layers.flatten(X)
-        tf.get_variable_scope().reuse_variables()
+        fc = tf.layers.Flatten(X)
+
         for dim in self.mlp_layers:
-            fc = tf.contrib.layers.fully_connected(fc, dim, activation_fn=tf.tanh)
+            fc = tf.layers.Dense(fc, dim, activation_fn=tf.tanh)
         self.predictions = tf.contrib.layers.fully_connected(fc, self.action_num, activation_fn=None)
 
         # Get the predictions for the chosen actions only
