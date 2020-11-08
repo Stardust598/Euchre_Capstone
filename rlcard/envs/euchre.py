@@ -43,7 +43,10 @@ class EuchreEnv(Env):
         obs += [ vec(e) for e in state['center'] ]
         obs += [ np.zeros(2*(4-len(state['center'])))-1 ]
         state['obs'] = np.hstack(obs)
-        print(state['obs'])
+
+        for e in ['trump','flipped','lead_suit','hand','center']:
+            print(e, "\t:\t", state[e])
+        
         return state
 
     def _decode_action(self, action_id):
