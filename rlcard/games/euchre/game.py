@@ -121,7 +121,7 @@ class EuchreGame(object):
                 self.lead_suit = self.trump
             else:
                 self.lead_suit = card.suit
-        self.center += card
+        self.center += [ card ]
         self.current_player = self._increment_player(self.current_player)
 
     def _end_trick(self):
