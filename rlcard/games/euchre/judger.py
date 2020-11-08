@@ -10,7 +10,10 @@ class EuchreJudger(object):
         trump = game.trump
         leader = game.current_player
         player_order = self._get_player_order(leader)
-        
+        center_cards = {}
+        for i,p in enumerate(player_order):
+            center_cards[p] = game.center[i]
+
         lead_suit = center_cards[leader].suit
         winning_card = center_cards[leader]
         
