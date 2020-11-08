@@ -271,8 +271,8 @@ class Estimator():
         fc = tf.layers.flatten(X)
 
         for dim in self.mlp_layers:
-            fc = tf.layers.dense(fc, dim, activation_fn=tf.tanh)
-        self.predictions = tf.layers.dense(fc, self.action_num, activation_fn=None)
+            fc = tf.layers.dense(fc, dim, activation=tf.tanh)
+        self.predictions = tf.layers.dense(fc, self.action_num, activation=None)
 
         # Get the predictions for the chosen actions only
         gather_indices = tf.range(batch_size) * tf.shape(self.predictions)[1] + self.actions_pl
