@@ -28,15 +28,15 @@ class EuchreEnv(Env):
         print(state['flipped'])
         print(state['lead_suit'])
         obs = []
-        if state['trump_called']:
+        if state['trump_called'] is not None:
             obs += [ vec(state['trump']) ]
         else:
             obs += [ np.array([-1]) ]
-        if state['flipped']:
+        if state['flipped'] is not None:
             obs += [ vec(state['flipped']) ]
         else:
             obs += [ np.array([-1]) ]
-        if state['lead_suit']:
+        if state['lead_suit'] is not None:
             obs += [ vec(state['lead_suit']) ]
         else:
             obs += [ np.array([-1]) ]
