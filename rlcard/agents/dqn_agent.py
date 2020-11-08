@@ -264,7 +264,7 @@ class Estimator():
         batch_size = tf.shape(self.X_pl)[0]
 
         # Batch Normalization
-        X = tf.layers.BatchNormalization(self.X_pl, training=self.is_train)
+        X = tf.layers.BatchNormalization(self.X_pl, is_training=self.is_train)
 
         # Fully connected layers
         fc = tf.layers.Flatten(X)
