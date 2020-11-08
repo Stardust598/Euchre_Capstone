@@ -53,6 +53,8 @@ class EuchreGame(object):
         else:
             state['flipped'] = None
         state['center'] = {k:v.get_index() for k, v in self.center.items()}
+
+        state['actions'] = self.get_legal_actions()
         return state
 
     def step(self, action):
