@@ -15,7 +15,6 @@ class EuchreEnv(Env):
 
     def _extract_state(self, state):
         def vec(s):
-            print(s)
             suit = {"C":0, "D":1, "H":2, "S":3}
             rank = {"9":9, "T":10, "J":11, "Q":12, "K":13, "A":14}
             if len(s)==1:
@@ -40,7 +39,7 @@ class EuchreEnv(Env):
         else:
             obs += [ np.array([-1]) ]
         obs += [ vec(e) for e in state['hand'] ]
-        obs += [ np.zeros(2*(5-len(state['hand'])))-1 ]
+        obs += [ np.zeros(2*(6-len(state['hand'])))-1 ]
         obs += [ vec(e) for e in state['center'] ]
         obs += [ np.zeros(2*(4-len(state['center'])))-1 ]
         state['obs'] = np.hstack(obs)
