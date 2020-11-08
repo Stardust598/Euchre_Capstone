@@ -23,7 +23,7 @@ class EuchreEnv(Env):
                                   state['lead_suit'],
                                   state['flipped'],
                                   state['center'],
-                                  npzeros(4-len(state['center'])),
+                                  np.zeros(4-len(state['center'])),
                                   state['hand']])
         return state
 
