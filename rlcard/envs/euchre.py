@@ -1,6 +1,7 @@
 from rlcard.envs import Env
 from rlcard.games.euchre import Game
 from rlcard.utils.euchre_utils import ACTION_SPACE, ACTION_LIST
+import numpy as np
 
 class EuchreEnv(Env):
 
