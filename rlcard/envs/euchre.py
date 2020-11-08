@@ -15,6 +15,7 @@ class EuchreEnv(Env):
     def _extract_state(self, state):
         state['legal_actions'] = self._get_legal_actions()
         state['raw_legal_actions'] = self.game.get_legal_actions()
+        state['obs'] = state
         return state
 
     def _decode_action(self, action_id):
