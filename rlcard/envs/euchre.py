@@ -43,9 +43,6 @@ class EuchreEnv(Env):
         obs += [ vec(e.get_index()) for e in state['center'] ]
         obs += [ np.zeros(2*(4-len(state['center'])))-1 ]
         state['obs'] = np.hstack(obs)
-
-        for e in ['trump','flipped','lead_suit','hand','center']:
-            print(e, "\t:\t", state[e])
         
         return state
 
