@@ -130,7 +130,7 @@ class DQNAgent(object):
         Returns:
             action (int): an action id
         '''
-        A = self.predict(state['obs'])
+        A = self.predict(state)
         A = remove_illegal(A, state['legal_actions'])
         action = np.random.choice(np.arange(len(A)), p=A)
         return action
@@ -145,10 +145,10 @@ class DQNAgent(object):
             action (int): an action id
             probs (list): a list of probabilies
         '''
-        q_values = self.q_estimator.predict(self.sess, np.expand_dims(state['obs'], 0))[0]
-        probs = remove_illegal(np.exp(q_values), state['legal_actions'])
-        best_action = np.argmax(probs)
-        return best_action, probs
+        A = self.predict(state)
+        A = remove_illegal(A, state['legal_actions'])
+        action = np.argmax(A)
+        return action, A
 
     def predict(self, state):
         ''' Predict the action probabilities
@@ -159,9 +159,15 @@ class DQNAgent(object):
         Returns:
             q_values (numpy.array): a 1-d array where each entry represents a Q value
         '''
+        legal_actions = state['legal_actions']
+        state = state['obs']
         epsilon = self.epsilons[min(self.total_t, self.epsilon_decay_steps-1)]
         A = np.ones(self.action_num, dtype=float) * epsilon / self.action_num
         q_values = self.q_estimator.predict(self.sess, np.expand_dims(state, 0))[0]
+        for action in range(self.action_num):
+            if action not in legal_actions:
+                q_values[action] = -np.inf
+                A[action] = 0
         best_action = np.argmax(q_values)
         A[best_action] += (1.0 - epsilon)
         return A

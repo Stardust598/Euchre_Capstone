@@ -161,7 +161,7 @@ class EuchreGame(object):
 
         if self.lead_suit is None:
             return [card.get_index() for card in hand]
-        
+
         follow = [card.get_index() for card in hand if 
                     (card.suit == self.lead_suit and not is_left(card, self.trump)) or 
                     (is_left(card, self.lead_suit) and self.lead_suit == self.trump)]
