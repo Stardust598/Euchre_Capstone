@@ -36,6 +36,7 @@ class EuchreGame(object):
         self.trump = None
         self.lead_suit = None
         self.turned_down = None
+        self.seen = np.zeros(24)
 
         self.current_player = self._increment_player(self.dealer_player_id)
         state = self.get_state(self.current_player)
@@ -55,6 +56,7 @@ class EuchreGame(object):
             state['flipped'] = None
         state['center'] = self.center
         state['order'] = self.order
+        state['seen'] = self.seen
         return state
 
     def step(self, action):
@@ -79,7 +81,7 @@ class EuchreGame(object):
             self._perform_discard(card)
             state = self.get_state(self.current_player)
             return state, self.current_player
-    
+
         self._play_card(action)
 
         if len(self.center) == 4:
@@ -124,6 +126,7 @@ class EuchreGame(object):
             else:
                 self.lead_suit = card.suit
         self.center += [ card ]
+        self.seen[card.get_index()-6] = 1
         self.order += [ self.current_player ]
         self.current_player = self._increment_player(self.current_player)
 

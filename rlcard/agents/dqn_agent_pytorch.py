@@ -200,7 +200,9 @@ class DQNAgent(object):
         state_batch = np.array(state_batch)
 
         loss = self.q_estimator.update(state_batch, action_batch, target_batch)
-        print('\rINFO - Agent {}, step {}, rl-loss: {}'.format(self.scope, self.total_t, loss), end='')
+
+        if self.train_t % max(1,self.update_target_estimator_every//10) == 0:
+            print('\rINFO - Agent {}, step {}, rl-loss: {}'.format(self.scope, self.total_t, loss), end='')
 
         # Update the target estimator
         if self.train_t % self.update_target_estimator_every == 0:
