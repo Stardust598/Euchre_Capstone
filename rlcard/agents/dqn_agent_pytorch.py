@@ -255,7 +255,7 @@ class Estimator(object):
     This network is used for both the Q-Network and the Target Network.
     '''
 
-    def __init__(self, action_num=2, learning_rate=0.001, state_shape=None, mlp_layers=None, device=None):
+    def __init__(self, action_num=2, learning_rate=0.0005, state_shape=None, mlp_layers=None, device=None):
         ''' Initilalize an Estimator object.
 
         Args:
