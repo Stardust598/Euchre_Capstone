@@ -7,6 +7,8 @@ from rlcard.games.euchre import Dealer
 from rlcard.games.euchre import Player
 from rlcard.games.euchre import Judger
 
+import numpy as np
+
 class EuchreGame(object):
 
     def __init__(self, allow_step_back=False):
