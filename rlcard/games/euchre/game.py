@@ -1,7 +1,7 @@
 import random
 from copy import deepcopy
 
-from rlcard.utils.euchre_utils import cards2list, is_left, is_right
+from rlcard.utils.euchre_utils import cards2list, is_left, is_right, ACTION_SPACE
 
 from rlcard.games.euchre import Dealer
 from rlcard.games.euchre import Player
@@ -128,7 +128,7 @@ class EuchreGame(object):
             else:
                 self.lead_suit = card.suit
         self.center += [ card ]
-        self.seen[card.get_index()-6] = 1
+        self.seen[ ACTION_SPACE[card.get_index()]-6] = 1
         self.order += [ self.current_player ]
         self.current_player = self._increment_player(self.current_player)
 
